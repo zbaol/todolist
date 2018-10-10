@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="index.css">
+  <script src="vue.js"></script>
+</head>
+
+<body>
+  <div class="page-top">
+    <div class="page-content">
+      <h2>任务计划列表</h2>
+    </div>
+  </div>
+  <div class="main" id="todolist">
+    <h3 class="big-title">添加任务：</h3>
+    <input placeholder="例如：吃饭睡觉打豆豆；    提示：+回车即可添加任务" class="task-input" type="text" v-on:keydown.enter="add" v-model="addInp"/>
+    <ul class="task-count">
+      <li>{{num}}个任务未完成</li>
+      <li class="action">
+        <a :class="{active:border==1}" href="#" @click="change(1)">所有任务</a>
+        <a :class="{active:border==2}" href="#" @click="change(2)">未完成的任务</a>
+        <a :class="{active:border==3}" href="#" @click="change(3)">完成的任务</a>
+      </li>
+    </ul>
+    <h3 class="big-title">任务列表：</h3>
+    <div class="tasks">
+
+      <span class="no-task-tip" v-if="listItems.length==0">还没有添加任何任务</span>
+      <ul class="todo-list">
+        <li class="todo" v-for="(item,index) in list" :class="{completed:item.iscomplete,editing:item.isediting}" @dblclick="dblclick(index)">
+          <div class="view">
+            <input class="toggle" type="checkbox" v-model="item.iscomplete" @click="click(index)"/>
+            <label>{{item.title}}</label>
+            <button class="destroy" @click="del(index)"></button>
+          </div>
+          <input class="edit" type="text" v-model="item.title" @keyup.enter="end(index)" @blur="end(index)" @keyup.esc="back(index)" v-focus="item.isediting"/>
+        </li>
+        <!-- <li class="todo">
+          <div class="view">
+            <input class="toggle" type="checkbox" />
+            <label>vue学习计划</label>
+            <button class="destroy"></button>
+          </div>
+          <input class="edit" type="text" />
+        </li>
+        <li class="todo completed">
+          <div class="view">
+            <input class="toggle" type="checkbox" checked="cheecked" />
+            <label>vue学习计划</label>
+            <button class="destroy"></button>
+          </div>
+          <input class="edit" type="text" />
+        </li>
+        <li class="todo editing">
+          <div class="view">
+            <input class="toggle" type="checkbox" />
+            <label>vue学习计划</label>
+            <button class="destroy"></button>
+          </div>
+          <input class="edit" type="text" />
+        </li> -->
+      </ul>
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
